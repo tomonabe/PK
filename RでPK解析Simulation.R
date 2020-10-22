@@ -84,15 +84,6 @@ out <-
 plot(out, lnC~.)
 
 
-#Keが異なる患者へ12時間ごと10 mgを繰り返し投与3日間
-idatake <- expand.idata(Ke = c(0.075, 0.15, 0.3))
-mod %>% init(Xa=0) %>%
-  ev_rx("10 q 12 x 6") %>%
-  idata_set(idatake) %>% 
-  mrgsim(end = 96, delta = 0.1) %>% 
-  plot(C~time)
-
-
 #繰り返し投与
 code<-" 
 $PARAM
@@ -121,7 +112,6 @@ mod %>%
   idata_set(idatake) %>% 
   mrgsim(end = 720, delta = 0.1) %>% 
   plot(C~time)
-
 
 
 #Keが異なる患者へ12時間ごと10mg繰り返し投与3日間
@@ -172,6 +162,19 @@ C = X/Vd; "
 #グラフを描く
 modiv<-mcode("iv", codeiv) %>% update(end = 60, delta = 0.1)
 modiv %>% mrgsim %>% plot
+
+
+#1-コンパートメントモデル急速静注繰り返し投与
+codeiv<-" 
+$PARAM
+Ke = 0.05, Vd = 50
+$INIT
+X=0
+$ODE
+dxdt_X = - Ke*X;
+$CAPTURE
+C = X/Vd; "
+modiv<-mcode("iv", codeiv) %>% update(end = 60, delta = 0.1)
 
 #Keが異なる患者へ12時間ごと10mg繰り返し投与3日間
 idatake <- expand.idata(Ke = c(0.075, 0.15, 0.3))
