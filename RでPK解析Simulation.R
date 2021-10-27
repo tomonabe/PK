@@ -24,7 +24,7 @@ out <-
   mod %>% 
   idata_set(idata) %>% 
   mrgsim(end=24)
-plot(out, C~.)
+plot(out, C~time)
 
 #Keを変化させてみる
 idatake <- expand.idata(Ke = c(0.075, 0.15, 0.3))
@@ -32,7 +32,7 @@ out <-
   mod %>% 
   idata_set(idatake) %>% 
   mrgsim(end=24)
-plot(out, C~.)
+plot(out, C~time)
 
 #Vdを変化させてみる
 idatavd <- expand.idata(Vd = c(5, 10, 20))
@@ -40,7 +40,7 @@ out <-
   mod %>% 
   idata_set(idatavd) %>% 
   mrgsim(end=24)
-plot(out, C~.)
+plot(out, C~time)
 
 
 #1-コンパートメントモデル経口投与　血中濃度を対数
@@ -65,7 +65,7 @@ out <-
   mod2 %>% 
   idata_set(idata) %>% 
   mrgsim(end=48)
-plot(out, lnC~.)
+plot(out, lnC~time)
 
 #Keを変化させてみる　時間を48時間まで
 idatake <- expand.idata(Ke = c(0.075, 0.15, 0.3))
@@ -73,7 +73,7 @@ out <-
   mod2 %>% 
   idata_set(idatake) %>% 
   mrgsim(end=48)
-plot(out, lnC~.)
+plot(out, lnC~time)
 
 #Vdを変化させてみる　時間を48時間まで
 idatavd <- expand.idata(Vd= c(5, 10, 20))
@@ -81,7 +81,7 @@ out <-
   mod2 %>% 
   idata_set(idatavd) %>% 
   mrgsim(end=48)
-plot(out, lnC~.)
+plot(out, lnC~time)
 
 
 #繰り返し投与
